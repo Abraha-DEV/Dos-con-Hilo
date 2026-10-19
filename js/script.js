@@ -85,7 +85,7 @@ if (lightbox) {
   const lightboxCaption = lightbox.querySelector(".lightbox-caption");
   const closeButton = lightbox.querySelector(".lightbox-close");
 
-  document.querySelectorAll(".product-image").forEach((imageLink) => {
+  document.querySelectorAll(".product-image, .exhibition-image").forEach((imageLink) => {
     imageLink.setAttribute("aria-haspopup", "dialog");
     imageLink.addEventListener("click", (event) => {
       event.preventDefault();
