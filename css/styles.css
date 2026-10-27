@@ -92,10 +92,11 @@ button {
 }
 
 .brand-logo {
-  width:143px;
+  width:58px;
   height:58px;
-  object-fit:contain;
-  object-position:left center
+  border-radius:50%;
+  object-fit:cover;
+  object-position:center
 }
 
 .brand-fallback {
@@ -809,6 +810,15 @@ h1 em,h2 em {
   color:white
 }
 
+.footer-brand .brand-logo {
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  object-fit:cover;
+  object-position:center;
+  background:transparent
+}
+
 .footer-brand .brand-mark {
   color:#f391b9
 }
@@ -999,7 +1009,7 @@ h1 em,h2 em {
 }
 
 .brand-logo {
-  width:128px;
+  width:51px;
   height:51px
 }
 
@@ -1424,6 +1434,10 @@ h1 em,h2 em {
   overflow:visible
 }
 
+.image-lightbox.is-gallery {
+  padding-inline:64px
+}
+
 .image-lightbox::backdrop {
   background:rgba(45,27,31,.82);
   backdrop-filter:blur(3px)
@@ -1444,6 +1458,43 @@ h1 em,h2 em {
   color:var(--brown);
   font-size:12px;
   text-align:center
+}
+
+.lightbox-count {
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:11px;
+  text-align:center
+}
+
+.lightbox-nav {
+  position:absolute;
+  top:50%;
+  display:grid;
+  width:40px;
+  height:40px;
+  padding:0;
+  place-items:center;
+  transform:translateY(-50%);
+  border:0;
+  border-radius:50%;
+  background:var(--pink);
+  color:white;
+  font-size:30px;
+  line-height:1;
+  cursor:pointer
+}
+
+.lightbox-previous { left:12px }
+.lightbox-next { right:12px }
+.lightbox-nav[hidden] { display:none }
+
+@media (max-width: 600px) {
+  .image-lightbox.is-gallery { padding:48px 14px 16px }
+  .image-lightbox.is-gallery .lightbox-nav { top:auto; bottom:15px; transform:none }
+  .image-lightbox.is-gallery .lightbox-previous { left:14px }
+  .image-lightbox.is-gallery .lightbox-next { right:14px }
+  .image-lightbox.is-gallery .lightbox-count { margin-bottom:38px }
 }
 
 .lightbox-close {

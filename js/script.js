@@ -83,7 +83,29 @@ const lightbox = document.querySelector(".image-lightbox");
 if (lightbox) {
   const lightboxImage = lightbox.querySelector(".lightbox-image");
   const lightboxCaption = lightbox.querySelector(".lightbox-caption");
+  const lightboxCount = lightbox.querySelector(".lightbox-count");
   const closeButton = lightbox.querySelector(".lightbox-close");
+  const previousButton = lightbox.querySelector(".lightbox-previous");
+  const nextButton = lightbox.querySelector(".lightbox-next");
+  const exhibitionPhotos = Array.from({ length: 6 }, (_, index) => ({
+    src: `assets/MLBZ${index + 1}.jpeg`,
+    alt: `Me lo llevo Bazar, foto ${index + 1} de 6`,
+  }));
+  let activePhotos = [];
+  let activePhotoIndex = 0;
+
+  const showPhoto = (index) => {
+    activePhotoIndex = (index + activePhotos.length) % activePhotos.length;
+    const photo = activePhotos[activePhotoIndex];
+    lightboxImage.src = photo.src;
+    lightboxImage.alt = photo.alt;
+    lightboxCaption.textContent = photo.alt;
+    lightboxCount.textContent = `${activePhotoIndex + 1} / ${activePhotos.length}`;
+    const isGallery = activePhotos.length > 1;
+    previousButton.hidden = !isGallery;
+    nextButton.hidden = !isGallery;
+    lightbox.classList.toggle("is-gallery", isGallery);
+  };
 
   document.querySelectorAll(".product-image, .exhibition-image").forEach((imageLink) => {
     imageLink.setAttribute("aria-haspopup", "dialog");
@@ -91,13 +113,16 @@ if (lightbox) {
       event.preventDefault();
       const image = imageLink.querySelector("img");
       if (!image) return;
-      lightboxImage.src = image.currentSrc || image.src;
-      lightboxImage.alt = image.alt;
-      lightboxCaption.textContent = image.alt;
+      activePhotos = imageLink.hasAttribute("data-exhibition-gallery")
+        ? exhibitionPhotos
+        : [{ src: image.currentSrc || image.src, alt: image.alt }];
+      showPhoto(0);
       lightbox.showModal();
     });
   });
 
+  previousButton.addEventListener("click", () => showPhoto(activePhotoIndex - 1));
+  nextButton.addEventListener("click", () => showPhoto(activePhotoIndex + 1));
   closeButton.addEventListener("click", () => lightbox.close());
   lightbox.addEventListener("click", (event) => {
     if (event.target === lightbox) lightbox.close();
@@ -105,6 +130,9 @@ if (lightbox) {
   lightbox.addEventListener("close", () => {
     lightboxImage.removeAttribute("src");
     lightboxCaption.textContent = "";
+    lightboxCount.textContent = "";
+    activePhotos = [];
+    lightbox.classList.remove("is-gallery");
   });
 }
 
