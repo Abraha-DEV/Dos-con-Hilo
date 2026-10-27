@@ -1490,7 +1490,20 @@ h1 em,h2 em {
 .lightbox-nav[hidden] { display:none }
 
 @media (max-width: 600px) {
-  .image-lightbox.is-gallery { padding:48px 14px 16px }
+  .image-lightbox.is-gallery {
+    box-sizing:border-box;
+    width:calc(100vw - 32px);
+    max-width:calc(100vw - 32px);
+    max-height:calc(100dvh - 40px);
+    padding:48px 14px 16px;
+  }
+  .image-lightbox.is-gallery .lightbox-image {
+    width:auto;
+    max-width:100%;
+    max-height:calc(100dvh - 245px);
+    margin-inline:auto;
+  }
+  .image-lightbox.is-gallery .lightbox-caption { margin-inline:0 }
   .image-lightbox.is-gallery .lightbox-nav { top:auto; bottom:15px; transform:none }
   .image-lightbox.is-gallery .lightbox-previous { left:14px }
   .image-lightbox.is-gallery .lightbox-next { right:14px }
